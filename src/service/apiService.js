@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080";
+const API_URL = "https://backend-production-048b.up.railway.app";
 
 export const getAllMovieByUser = async (userId) => {
   try {
