@@ -11,7 +11,7 @@ import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import Loader from "../Static/Loader";
 
 const UserPlaylist = () => {
-  const { userId, userRole } = useUserData();
+  const { userId, accesToken } = useUserData();
   const [swipe, setSwipe] = useState([]);
   const [recommendMovies, setRecommendMovies] = useState([])
   const [watchedMovies, setWatchedMovies] = useState([]);
@@ -23,8 +23,7 @@ const UserPlaylist = () => {
       // userId n'est pas encore défini, ne rien faire
       return;
     }
-    console.log(userRole);
-    getSwipeByUserId(userId)
+    getSwipeByUserId(userId, accesToken)
       .then((response) => {
         setSwipe(response);
       })
@@ -32,14 +31,14 @@ const UserPlaylist = () => {
         console.error("Erreur c'est produite :", error);
       });
 
-    getRecommendationByuser(userId)
+    getRecommendationByuser(userId, accesToken)
       .then((response) => {
         setRecommendMovies(response);
       })
       .catch((error) => {
         console.error("Erreur c'est produite :", error);
       })
-    getWatchedMovieByUserId(userId)
+    getWatchedMovieByUserId(userId, accesToken)
       .then((response) => {
         setWatchedMovies(response);
       })
@@ -49,7 +48,7 @@ const UserPlaylist = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [userId]);
+  }, [userId, accesToken]);
 
   const toggleFullScreen = () => {
     setFullScreen(!fullScreen);

@@ -6,28 +6,31 @@ export const useUserData = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userId, setUserId] = useState();
   const [userRole, setUserRole] = useState([]);
+  const [accesToken, setAccesToken] = useState("")
 
   const token = useRef("");
 
   useEffect(() => {
     token.current = localStorage.getItem("userToken");
     if (token.current !== null) {
-      const decodedToken = jwtDecode(token.current);
-      setUserEmail(decodedToken.sub);
-      setUserRole(decodedToken.roles);
-      getUserIdByEmail(decodedToken.sub).then((id) => {
+      const decodedTokens = jwtDecode(token.current);
+      setUserEmail(decodedTokens.sub);
+      setUserRole(decodedTokens.roles);
+      setAccesToken(token.current)
+      getUserIdByEmail(decodedTokens.sub, token.current).then((id) => {
         setUserId(id);
       });
     }
   }, []);
-
+  
   const memoUser = useMemo(() => {
     return {
       userId,
       userEmail,
-      userRole
+      userRole,
+      accesToken
     };
-  }, [userId, userEmail, userRole]);
+  }, [userId, userEmail, userRole, accesToken]);
 
   return memoUser;
 };

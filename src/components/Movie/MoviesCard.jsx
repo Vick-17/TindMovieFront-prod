@@ -13,7 +13,7 @@ import { useUserData } from "../../service/userService";
 const MoviesCard = () => {
   const [movies, setMovies] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { userId } = useUserData();
+  const { userId, accesToken } = useUserData();
   const [serverIsDown, setServerIsDown] = useState(false);
 
   // Référence pour suivre currentIndex
@@ -29,7 +29,7 @@ const MoviesCard = () => {
         let response;
         if (userId) {
           // Charge les films de l'utilisateur s'il est connecté
-          response = await getAllMovieByUser(userId);
+          response = await getAllMovieByUser(userId, accesToken);
         } else {
           // Charge tous les films si l'utilisateur n'est pas connecté
           response = await getAllMovie();
@@ -47,7 +47,7 @@ const MoviesCard = () => {
     };
 
     fetchData();
-  }, [userId]);
+  }, [userId, accesToken]);
 
   const updateCurrentIndex = (val) => {
     // Met à jour currentIndex et la référence
@@ -70,7 +70,7 @@ const MoviesCard = () => {
       swipeDirection: direction,
     };
 
-    await swipeLike(swipeData);
+    await swipeLike(swipeData, accesToken);
     updateCurrentIndex(index - 1);
   };
 
@@ -95,7 +95,7 @@ const MoviesCard = () => {
       filmId: movies[newIndex].id,
     };
     // Supprime le geste de balayage associé
-    await deleteSwipe(swipeData);
+    await deleteSwipe(swipeData, accesToken);
   };
 
   return (

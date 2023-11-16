@@ -4,19 +4,22 @@ import Comment from "./Comment";
 import { useParams } from "react-router-dom";
 import {
   getCommentForMovie,
-  getNotMoyenne,
+  getNoteMoyenne,
   getUserById,
 } from "../../service/apiService";
 import { useState } from "react";
+import { useUserData } from "../../service/userService";
 
 const MovieRate = ({ movieAffiche, title }) => {
   const { movieId } = useParams();
   const [comment, setComment] = useState([]);
   const [commentWithAuthors, setCommentWithAuthors] = useState([]);
   const [note, setNote] = useState();
+  const { accesToken } = useUserData();
+  
 
   useEffect(() => {
-    getNotMoyenne(movieId)
+    getNoteMoyenne(movieId, accesToken)
       .then((response) => {
         if (response.error) {
           console.log("marche pas");
@@ -28,7 +31,7 @@ const MovieRate = ({ movieAffiche, title }) => {
         console.error(error);
       });
 
-    getCommentForMovie(movieId)
+    getCommentForMovie(movieId, accesToken)
       .then((response) => {
         if (response.error) {
           console.log("marche pas non plus");
@@ -39,14 +42,14 @@ const MovieRate = ({ movieAffiche, title }) => {
       .catch((error) => {
         console.error(error);
       });
-  }, [movieId]);
+  }, [movieId, accesToken]);
 
   useEffect(() => {
     const fetchUserNames = async () => {
       const commentsWithAuthors = await Promise.all(
         comment.map(async (commentaire) => {
           const userId = commentaire.usersId;
-          const user = await getUserById(userId);
+          const user = await getUserById(userId, accesToken);
           return { ...commentaire, author: user.username };
         })
       );

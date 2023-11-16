@@ -1,8 +1,14 @@
 const API_URL = "https://backend-production-048b.up.railway.app";
 
-export const getAllMovieByUser = async (userId) => {
+
+
+export const getAllMovieByUser = async (userId, accessToken) => {
   try {
-    const response = await fetch(`${API_URL}/movie/allMovieByUser/${userId}`);
+    const response = await fetch(`${API_URL}/movie/allMovieByUser/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     if (!response.ok) {
       throw new Error("Erreur lors de la récupération des films");
     }
@@ -50,9 +56,13 @@ export const getAllGenre = async () => {
   }
 };
 
-export const getRecommendationByuser = async (userId) => {
+export const getRecommendationByuser = async (userId, accessToken) => {
   try {
-    const response = await fetch(`${API_URL}/movie/recommendation/${userId}`);
+    const response = await fetch(`${API_URL}/movie/recommendation/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     if (!response.ok) {
       throw new Error("Erreur lors de la récupération des films recommeder");
     }
@@ -63,11 +73,14 @@ export const getRecommendationByuser = async (userId) => {
   }
 };
 
-export const getLinkedUsername = async (userId) => {
+export const getLinkedUsername = async (userId, accessToken) => {
   try {
     const response = await fetch(
-      `${API_URL}/users/linkedUsername?userId=${userId}`
-    );
+      `${API_URL}/users/linkedUsername?userId=${userId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     if (!response.ok) {
       throw new Error("Erreur lors de la récupération du partenaire");
     }
@@ -92,9 +105,13 @@ export const getAllMovie = async () => {
   }
 };
 
-export const getUserIdByEmail = async (userEmail) => {
+export const getUserIdByEmail = async (userEmail, accessToken) => {
   try {
-    const response = await fetch(`${API_URL}/users?email=${userEmail}`);
+    const response = await fetch(`${API_URL}/users?email=${userEmail}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     if (!response.ok) {
       throw new Error("Erreur lors de la recupération des données");
     }
@@ -106,9 +123,13 @@ export const getUserIdByEmail = async (userEmail) => {
   }
 };
 
-export const getSwipeByUserId = async (userId) => {
+export const getSwipeByUserId = async (userId, accessToken) => {
   try {
-    const response = await fetch(`${API_URL}/swipe/allSwipe/${userId}`);
+    const response = await fetch(`${API_URL}/swipe/allSwipe/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     if (!response === 200) {
       throw new Error("Erreur lors de la récupération des swipe");
     }
@@ -120,9 +141,13 @@ export const getSwipeByUserId = async (userId) => {
   }
 };
 
-export const getWatchedMovieByUserId = async (userId) => {
+export const getWatchedMovieByUserId = async (userId, accessToken) => {
   try {
-    const response = await fetch(`${API_URL}/swipe/watchedMovie/${userId}`);
+    const response = await fetch(`${API_URL}/swipe/watchedMovie/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     if (!response === 200) {
       throw new Error("Erreur lors de la récupération des swipe");
     }
@@ -134,9 +159,13 @@ export const getWatchedMovieByUserId = async (userId) => {
   }
 };
 
-export const getUserById = async (userId) => {
+export const getUserById = async (userId, accessToken) => {
   try {
-    const response = await fetch(`${API_URL}/users/getUserById/${userId}`);
+    const response = await fetch(`${API_URL}/users/getUserById/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     if (!response === 200) {
       throw new Error("Erreur lors de la recupurération de l'utilisateur par l'id");
     }
@@ -161,9 +190,13 @@ export const getMovieById = async (movieId) => {
 };
 
 
-export const getNotMoyenne = async (movieId) => {
+export const getNoteMoyenne = async (movieId, accessToken) => {
   try {
-    const response = await fetch(`${API_URL}/note/getNote/${movieId}`);
+    const response = await fetch(`${API_URL}/note/getNote/${movieId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     if (!response.ok) {
       throw new Error("Erreur lors de la recupération de la moyenne")
     }
@@ -175,9 +208,13 @@ export const getNotMoyenne = async (movieId) => {
   }
 };
 
-export const getCommentForMovie = async (movieId) => {
+export const getCommentForMovie = async (movieId, accessToken) => {
   try {
-    const response = await fetch(`${API_URL}/comment/getComment/${movieId}`);
+    const response = await fetch(`${API_URL}/comment/getComment/${movieId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     if (!response.ok) {
       throw new Error("Erreur lors de la recupération des commentaire")
     }
@@ -276,7 +313,7 @@ export const userSignIn = async (userData) => {
   }
 };
 
-export const partenaireLink = async (shareCode, userId) => {
+export const partenaireLink = async (shareCode, userId, accessToken) => {
   try {
     const response = await fetch(
       `${API_URL}/users/link?shareCode=${shareCode}&userId=${userId}`,
@@ -284,6 +321,8 @@ export const partenaireLink = async (shareCode, userId) => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`
+
         },
       }
     );
@@ -303,12 +342,13 @@ export const partenaireLink = async (shareCode, userId) => {
   }
 };
 
-export const setWatchedMovie = async (watchedData) => {
+export const setWatchedMovie = async (watchedData, accessToken) => {
   try {
     const response = await fetch(`${API_URL}/swipe/watched`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`
       },
       body: JSON.stringify(watchedData),
     });
@@ -326,12 +366,13 @@ export const setWatchedMovie = async (watchedData) => {
   }
 };
 
-export const swipeLike = async (swipeData) => {
+export const swipeLike = async (swipeData, accessToken) => {
   try {
     const response = await fetch(`${API_URL}/swipe/like`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(swipeData),
     });
@@ -345,13 +386,13 @@ export const swipeLike = async (swipeData) => {
     throw error;
   }
 };
-
-export const addCommentAndNote = async (commentData, noteData) => {
+export const addCommentAndNote = async (commentData, noteData, accessToken) => {
   try {
     const commentResponse = await fetch(`${API_URL}/comment/addComment`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`
       },
       body: JSON.stringify(commentData),
     });
@@ -359,6 +400,7 @@ export const addCommentAndNote = async (commentData, noteData) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`
       },
       body: JSON.stringify(noteData),
     });
@@ -395,10 +437,11 @@ export const userLogiIn = async (userData) => {
   }
 };
 
-export const deleteSwipe = async (swipeData) => {
+export const deleteSwipe = async (swipeData, accessToken) => {
   try {
     const headers = {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`
     };
     const response = await fetch(`${API_URL}/swipe/delete`, {
       headers: headers,

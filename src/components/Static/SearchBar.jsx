@@ -23,12 +23,9 @@ const SearchBar = ({ updateSearchResults }) => {
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     const { userRole } = useUserData();
-    const [searchTerm, setSearchTerm] = useState('');
 
     const handleSearchChange = async (event) => {
         const newSearchTerm = event.target.value;
-        setSearchTerm(newSearchTerm);
-
         const results = await getSearchMovie(newSearchTerm);
 
         updateSearchResults(results)

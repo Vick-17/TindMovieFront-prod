@@ -24,7 +24,6 @@ const App = () => {
   if (loading) {
     return <p>Loading...</p>;
   }
-
   return (
     <Routes>
       <Route path="/" element={<Home />} />

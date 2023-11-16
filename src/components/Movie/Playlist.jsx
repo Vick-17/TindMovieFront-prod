@@ -5,10 +5,12 @@ import { setWatchedMovie } from "../../service/apiService";
 import toast from "react-hot-toast";
 import Modal from "./Modal";
 import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
+import { useUserData } from "../../service/userService";
 
 const Playlist = ({ id, titre, userId, filmId, showNotes, showLike }) => {
   const [isWatched, setIsWatched] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { accesToken } = useUserData();
 
   const handleCheckClick = async () => {
     try {
@@ -16,7 +18,7 @@ const Playlist = ({ id, titre, userId, filmId, showNotes, showLike }) => {
         userId: userId,
         filmId: filmId,
       };
-      await setWatchedMovie(watchedData);
+      await setWatchedMovie(watchedData, accesToken);
       setIsWatched(true);
     } catch (error) {
       toast.error("Erreur lors de la mise a jours des film");

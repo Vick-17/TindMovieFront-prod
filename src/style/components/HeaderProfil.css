@@ -13,15 +13,16 @@
   position: relative;
 }
 
-.banner_profil > img {
+.banner_profil>img {
   max-width: 100%;
   max-height: 100%;
   object-fit: cover;
   border-radius: 10px;
 }
+
 .nav_profil {
   width: 100%;
-  padding: 8%;
+  padding: 2%;
 }
 
 .user_name {
@@ -37,8 +38,18 @@
   flex-direction: column;
 }
 
-.user_name > img {
-  width: 100px;
+.user_name>img {
+  width: 130px;
   border-radius: 50%;
   border: 2px solid #fff;
+}
+
+@media (max-width: 870px) {
+  .nav_profil {
+    padding: 8%;
+  }
+
+  .user_name>img {
+    width: 100px;
+  }
 }

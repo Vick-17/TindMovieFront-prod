@@ -12,7 +12,7 @@ const Home = () => {
     const [searchResults, setSearchResults] = useState([]);
     const [filterResults, setFilterResults] = useState([]);
     const [displayedMovies, setDisplayedMovies] = useState([]);
-    const { userId } = useUserData();
+    const { userId, accesToken } = useUserData();
     const [displayMode, setDisplayMode] = useState("all");
 
     const updateSearchResults = (results) => {
@@ -29,13 +29,11 @@ const Home = () => {
         }
     }
 
-
-
     useEffect(() => {
         const fetchData = async () => {
             try {
                 if (userId) {
-                    const response = await getAllMovieByUser(userId);
+                    const response = await getAllMovieByUser(userId, accesToken);
                     setMovies(response);
                     setIsLoading(false);
                 } else {

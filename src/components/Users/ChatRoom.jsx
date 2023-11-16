@@ -8,18 +8,19 @@ import { getUserById, getPartenaire } from "../../service/apiService"
 var stompClient = null;
 
 const ChatRoom = () => {
-    const { userId } = useUserData();
+    const { userId, accesToken } = useUserData();
     const [currentChat, setCurrentChat] = useState([]);
     const [userData, setUserData] = useState({
         message: '',
     });
     const [partenaireUsername, setPartenaireUsername] = useState("");
 
+
     useEffect(() => {
         const fetchData = async () => {
             if (userId) {
                 try {
-                    setUserData(await getUserById(userId));
+                    setUserData(await getUserById(userId, accesToken));
                     setPartenaireUsername(await getPartenaire(userId));
                 } catch (error) {
                     console.error(error);

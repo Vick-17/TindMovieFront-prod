@@ -13,9 +13,11 @@ import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import StarIcon from "@mui/icons-material/Star";
 import { swipeLike } from "../../service/apiService";
+import { useUserData } from '../../service/userService';
 
 const CardList = ({ title, subheader, image, content, actor, movieId, userId, onRemove }) => {
 
+    const { accesToken } = useUserData();
     const ExpandMore = styled((props) => {
         const { expand, ...other } = props;
         return <IconButton {...other} />;
@@ -26,7 +28,6 @@ const CardList = ({ title, subheader, image, content, actor, movieId, userId, on
             duration: theme.transitions.duration.shortest,
         }),
     }));
-
     const [expanded, setExpanded] = useState(false);
 
     const handleExpandClick = () => {
@@ -39,7 +40,6 @@ const CardList = ({ title, subheader, image, content, actor, movieId, userId, on
         }
     };
 
-
     const like = async (swipeDirection) => {
         if (userId) {
             const likeData = {
@@ -48,7 +48,7 @@ const CardList = ({ title, subheader, image, content, actor, movieId, userId, on
                 swipeDirection: swipeDirection
             };
             setShouldRemove(true);
-            await swipeLike(likeData);
+            await swipeLike(likeData, accesToken);
         } else {
             window.location.href = `/login`;
         }
