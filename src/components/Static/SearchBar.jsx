@@ -40,6 +40,10 @@ const SearchBar = ({ updateSearchResults }) => {
         window.location.href = "/login";
     }
 
+    const handlePartenaire = () => {
+        window.location.href = "/partenaire";
+    }
+
     const handleHome = () => {
         window.location.href = "/";
     }
@@ -87,6 +91,7 @@ const SearchBar = ({ updateSearchResults }) => {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={goToProfil}>Profile</MenuItem>
+            <MenuItem onClick={handlePartenaire}>Partenaire</MenuItem>
             {userRole.includes("ROLE_USER") || userRole.includes("ROLE_ADMIN") ? (
                 <MenuItem onClick={handleLogout}>
                     Déconnexion

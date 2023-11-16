@@ -1,6 +1,28 @@
 import React from "react";
+import { getUserById } from "../../service/apiService";
+import { useUserData } from "../../service/userService";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const HeaderProfil = () => {
+  const { userId, accesToken} = useUserData();
+  const [ userData, setUserData] = useState([]);
+
+  useEffect(() => {
+const fetchUserData = async () => {
+  try {
+    const response = await getUserById(userId, accesToken)
+    setUserData(response);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+fetchUserData()
+  }, [userId, accesToken])
+
+  console.log(userData);
+
   return (
     <div className="header_profil">
       <div className="banner_profil">

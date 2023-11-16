@@ -48,7 +48,7 @@ const Home = () => {
         };
 
         fetchData();
-    }, [userId]);
+    }, [userId, accesToken]);
 
     const removeMovieFromList = (movieId) => {
         setMovies((prevMovies) => {

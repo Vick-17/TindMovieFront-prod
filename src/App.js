@@ -6,6 +6,7 @@ import Profil from "./page/Profil";
 import ChatRoom from "./components/Users/ChatRoom";
 import Home from "./page/Home";
 import NotFound from "./page/NotFound";
+import Partenaire from "./components/Users/Partenaire";
 import jwtDecode from "jwt-decode";
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
       <Route path="/commentaire/:movieId" element={<MovieRate />} />
       <Route path="/404" element={<NotFound />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/partenaire" element={<Partenaire />} />
       
       {roles.length > 0 && roles[0] === "ROLE_MODO" ? (
         <Route path="/message" element={<ChatRoom />} />
