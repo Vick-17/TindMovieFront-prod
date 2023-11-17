@@ -5,6 +5,7 @@ import { getAllMovie, getAllMovieByUser } from '../service/apiService';
 import Loader from "../components/Static/Loader";
 import { useUserData } from '../service/userService';
 import FilterBar from '../components/Static/FilterBar';
+import Pagination from '../components/Static/Pagination';
 
 const Home = () => {
     const [movies, setMovies] = useState([]);
@@ -119,23 +120,11 @@ const Home = () => {
                     ))
                 )}
             </div>
-            <div className="pagination">
-                <button
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                >
-                    Précédent
-                </button>
-                <span>
-                    Page {currentPage} de {totalPages}
-                </span>
-                <button
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                >
-                    Suivant
-                </button>
-            </div>
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                handlePageChange={handlePageChange}
+            />
         </>
     );
 };
