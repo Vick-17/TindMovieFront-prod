@@ -1,4 +1,5 @@
-const API_URL = "https://backend-production-048b.up.railway.app";
+//const API_URL = "https://backend-production-048b.up.railway.app";
+const API_URL = "http://localhost:8080";
 
 
 

@@ -73,6 +73,11 @@ const SearchBar = ({ updateSearchResults }) => {
         }
     }
 
+ 
+        const textFieldStyle = {
+            border: "none"
+        };
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -175,11 +180,12 @@ const SearchBar = ({ updateSearchResults }) => {
                         <TextField
                             onChange={handleSearchChange}
                             placeholder="Chercher un film"
+                            style={textFieldStyle}
                         />
                     </div>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                        {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="error">
                                 <MailIcon />
                             </Badge>
@@ -192,7 +198,7 @@ const SearchBar = ({ updateSearchResults }) => {
                             <Badge badgeContent={17} color="error">
                                 <NotificationsIcon />
                             </Badge>
-                        </IconButton>
+                        </IconButton> */}
                         <IconButton
                             size="large"
                             edge="end"
