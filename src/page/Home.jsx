@@ -14,6 +14,10 @@ const Home = () => {
     const [displayedMovies, setDisplayedMovies] = useState([]);
     const { userId, accesToken } = useUserData();
     const [displayMode, setDisplayMode] = useState("all");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(6);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
 
     const updateSearchResults = (results) => {
         setSearchResults(results);
@@ -50,6 +54,26 @@ const Home = () => {
         fetchData();
     }, [userId, accesToken]);
 
+    useEffect(() => {
+        const handleResize = () => {
+            // Ajustez le nombre d'éléments par page en fonction de la largeur de l'écran
+            if (window.innerWidth >= 1200) {
+                setItemsPerPage(8);
+            } else if (window.innerWidth >= 925) {
+                setItemsPerPage(6);
+            } else {
+                setItemsPerPage(4);
+            }
+        };
+
+        // Appelez la fonction handleResize au chargement de la page et lors du redimensionnement
+        handleResize();
+        window.addEventListener("resize", handleResize);
+
+        // Nettoyez l'écouteur d'événements lors du démontage du composant
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     const removeMovieFromList = (movieId) => {
         setMovies((prevMovies) => {
             return prevMovies.filter((movie) => movie.id !== movieId);
@@ -66,6 +90,13 @@ const Home = () => {
         displayMovies = movies;
     }
 
+    const paginatedMovies = displayMovies.slice(startIndex, endIndex);
+    const totalPages = Math.ceil(displayMovies.length / itemsPerPage);
+
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
+
     return (
         <>
             <SearchBar updateSearchResults={updateSearchResults} />
@@ -74,7 +105,7 @@ const Home = () => {
                 {isLoading ? (
                     <Loader />
                 ) : (
-                    displayMovies.map((movie, index) => (
+                    paginatedMovies.map((movie, index) => (
                         <CardList
                             key={index}
                             title={movie.titre}
@@ -87,6 +118,23 @@ const Home = () => {
                         />
                     ))
                 )}
+            </div>
+            <div className="pagination">
+                <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                >
+                    Précédent
+                </button>
+                <span>
+                    Page {currentPage} de {totalPages}
+                </span>
+                <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                >
+                    Suivant
+                </button>
             </div>
         </>
     );

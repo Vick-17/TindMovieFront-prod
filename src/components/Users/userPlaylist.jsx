@@ -10,7 +10,7 @@ import { useUserData } from "../../service/userService";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import Loader from "../Static/Loader";
 
-const UserPlaylist = () => {
+const UserPlaylist = ({ partenaireData }) => {
   const { userId, accesToken } = useUserData();
   const [swipe, setSwipe] = useState([]);
   const [recommendMovies, setRecommendMovies] = useState([])
@@ -20,7 +20,6 @@ const UserPlaylist = () => {
 
   useEffect(() => {
     if (!userId) {
-      // userId n'est pas encore défini, ne rien faire
       return;
     }
     getSwipeByUserId(userId, accesToken)
@@ -62,40 +61,53 @@ const UserPlaylist = () => {
     <>
       <div className="user_block_container">
         <div className="header_playlist">
-          <h5>Notre playlist</h5>
+          {partenaireData === null ? (
+            <h5>Ma playlist</h5>
+          ) : (
+            <h5>Ma playlist avec ({partenaireData.username})</h5>
+          )}
           <IconButton onClick={toggleFullScreen} style={{ padding: "0" }}>
             <FullscreenIcon />
           </IconButton>
         </div>
         <div className={`playlist ${fullScreen ? "fullScreen" : ""}`}>
-          {swipe.map((movie, index) => (
-            <Playlist
-              key={movie.id}
-              titre={movie.titre}
-              userId={userId}
-              filmId={movie.id}
-            />
-          ))}
+          {swipe.length === 0 ? (
+            <p>Aucun film pour le moment.</p>
+          ) : (
+            swipe.map((movie) => (
+              <Playlist
+                key={movie.id}
+                titre={movie.titre}
+                userId={userId}
+                filmId={movie.id}
+              />
+            ))
+          )}
         </div>
       </div>
       <div className="user_block_container">
         <h5>Suggestion</h5>
         <div className={`playlist ${fullScreen ? "fullScreen" : ""}`}>
-          {recommendMovies.map((movie, index) => (
+
+          {recommendMovies.length === 0 ? (
+            <p>Aucun film recommender pour le moment</p>
+          ) : (recommendMovies.map((recommendMovie) => (
             <Playlist
-              key={movie.id}
-              titre={movie.titre}
+              key={recommendMovie.id}
+              titre={recommendMovie.titre}
               userId={userId}
-              filmId={movie.id}
-              showLike={true}
+              filmId={recommendMovie.id}
             />
-          ))}
+          ))
+          )}
         </div>
       </div>
       <div className="user_block_container">
         <h5>Films vus</h5>
         <div className={`playlist ${fullScreen ? "fullScreen" : ""}`}>
-          {watchedMovies.map((watchedMovie, index) => (
+          {watchedMovies.length === 0 ? (
+            <p>Auun films regarder</p>
+          ) : (watchedMovies.map((watchedMovie) => (
             <Playlist
               key={watchedMovie.id}
               titre={watchedMovie.titre}
@@ -103,7 +115,7 @@ const UserPlaylist = () => {
               filmId={watchedMovie.id}
               showNotes={true}
             />
-          ))}
+          )))}
         </div>
       </div>
     </>

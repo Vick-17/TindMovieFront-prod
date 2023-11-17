@@ -1,27 +1,11 @@
 import React from "react";
-import { getUserById } from "../../service/apiService";
-import { useUserData } from "../../service/userService";
-import { useEffect } from "react";
-import { useState } from "react";
 
-const HeaderProfil = () => {
-  const { userId, accesToken} = useUserData();
-  const [ userData, setUserData] = useState([]);
+const HeaderProfil = ({userData}) => {
 
-  useEffect(() => {
-const fetchUserData = async () => {
-  try {
-    const response = await getUserById(userId, accesToken)
-    setUserData(response);
-  } catch (error) {
-    console.error(error);
-    throw error;
+
+  if (!userData.id) {
+    return <p>loading...</p>
   }
-}
-fetchUserData()
-  }, [userId, accesToken])
-
-  console.log(userData);
 
   return (
     <div className="header_profil">
@@ -37,7 +21,7 @@ fetchUserData()
             src="https://media.istockphoto.com/id/1177473493/photo/raccoon-looking-out-of-a-trashcan.jpg?s=612x612&w=0&k=20&c=RGULsGUXNUjRp6GoC7g0GYutYb2y696sGlPOmfC__fw="
             alt=""
           />
-          Rakoon
+          {userData.username}
         </div>
       </div>
     </div>
