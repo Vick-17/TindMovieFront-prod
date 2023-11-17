@@ -56,12 +56,11 @@ const UserPlaylist = ({ partenaireData }) => {
   if (isLoading) {
     return <Loader />;
   }
-
   return (
     <>
       <div className="user_block_container">
         <div className="header_playlist">
-          {partenaireData === null ? (
+          {partenaireData.length === 0 ? (
             <h5>Ma playlist</h5>
           ) : (
             <h5>Ma playlist avec ({partenaireData.username})</h5>
