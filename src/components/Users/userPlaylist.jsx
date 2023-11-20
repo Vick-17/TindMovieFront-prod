@@ -4,7 +4,8 @@ import IconButton from "@mui/material/IconButton";
 import {
   getSwipeByUserId,
   getWatchedMovieByUserId,
-  getRecommendationByuser
+  getRecommendationByuser,
+  getMatchByUserId
 } from "../../service/apiService";
 import { useUserData } from "../../service/userService";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
@@ -22,13 +23,24 @@ const UserPlaylist = ({ partenaireData }) => {
     if (!userId) {
       return;
     }
-    getSwipeByUserId(userId, accesToken)
+    if (partenaireData.length === 0) {
+      getSwipeByUserId(userId, accesToken)
+        .then((response) => {
+          setSwipe(response);
+        })
+        .catch((error) => {
+          console.error("Erreur c'est produite :", error);
+        });
+    } else {
+      getMatchByUserId(userId, partenaireData.id, accesToken)
       .then((response) => {
         setSwipe(response);
       })
       .catch((error) => {
         console.error("Erreur c'est produite :", error);
       });
+    }
+
 
     getRecommendationByuser(userId, accesToken)
       .then((response) => {
@@ -47,7 +59,7 @@ const UserPlaylist = ({ partenaireData }) => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [userId, accesToken]);
+  }, [userId, accesToken, partenaireData]);
 
   const toggleFullScreen = () => {
     setFullScreen(!fullScreen);
@@ -63,7 +75,7 @@ const UserPlaylist = ({ partenaireData }) => {
           {partenaireData.length === 0 ? (
             <h5>Ma playlist</h5>
           ) : (
-            <h5>Ma playlist avec ({partenaireData.username})</h5>
+            <h5>Ma playlist avec {partenaireData.username}</h5>
           )}
           <IconButton onClick={toggleFullScreen} style={{ padding: "0" }}>
             <FullscreenIcon />

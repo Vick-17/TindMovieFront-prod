@@ -12,6 +12,7 @@ const Partenaire = () => {
 
     const handlSubmit = async () => {
         const shareCode = inputRef.current.value;
+        console.log(shareCode);
         try {
             const response = await partenaireLink(shareCode, userId, accesToken);
 
@@ -45,7 +46,7 @@ const Partenaire = () => {
         <div>
             <SearchBar />
             <div style={{width: '100%', height: '90vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center'}}>
-                <TextField id="outlined-basic" ref={inputRef} label="Code de liasion" variant="outlined" />
+            <TextField inputRef={inputRef} id="outlined-basic" label="Code de liaison" variant="outlined" />
                 <IconButton
                     onClick={handlSubmit}
                     style={{ fontSize: "17px", color: "black" }}

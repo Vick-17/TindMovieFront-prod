@@ -21,6 +21,8 @@ export const getAllMovieByUser = async (userId, accessToken) => {
   }
 };
 
+
+
 export const getAllActor = async () => {
   try {
     const response = await fetch(`${API_URL}/actors/allActor`);
@@ -133,6 +135,24 @@ export const getSwipeByUserId = async (userId, accessToken) => {
     });
     if (!response === 200) {
       throw new Error("Erreur lors de la récupération des swipe");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getMatchByUserId = async (userId1, userId2, accessToken) => {
+  try {
+    const response = await fetch(`${API_URL}/match/macthByUser/${userId1}/${userId2}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    if (!response === 200) {
+      throw new Error("Erreur lors de la récupération des match");
     }
     const data = await response.json();
     return data;
