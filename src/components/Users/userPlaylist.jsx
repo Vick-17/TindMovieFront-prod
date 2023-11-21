@@ -33,12 +33,12 @@ const UserPlaylist = ({ partenaireData }) => {
         });
     } else {
       getMatchByUserId(userId, partenaireData.id, accesToken)
-      .then((response) => {
-        setSwipe(response);
-      })
-      .catch((error) => {
-        console.error("Erreur c'est produite :", error);
-      });
+        .then((response) => {
+          setSwipe(response);
+        })
+        .catch((error) => {
+          console.error("Erreur c'est produite :", error);
+        });
     }
 
 
@@ -86,12 +86,15 @@ const UserPlaylist = ({ partenaireData }) => {
             <p>Aucun film pour le moment.</p>
           ) : (
             swipe.map((movie) => (
-              <Playlist
-                key={movie.id}
-                titre={movie.titre}
-                userId={userId}
-                filmId={movie.id}
-              />
+              // Vérifie si le film n'est pas dans la liste des films regardés
+              !watchedMovies.some((watchedMovie) => watchedMovie.id === movie.id) && (
+                <Playlist
+                  key={movie.id}
+                  titre={movie.titre}
+                  userId={userId}
+                  filmId={movie.id}
+                />
+              )
             ))
           )}
         </div>
@@ -103,12 +106,14 @@ const UserPlaylist = ({ partenaireData }) => {
           {recommendMovies.length === 0 ? (
             <p>Aucun film recommender pour le moment</p>
           ) : (recommendMovies.map((recommendMovie) => (
-            <Playlist
-              key={recommendMovie.id}
-              titre={recommendMovie.titre}
-              userId={userId}
-              filmId={recommendMovie.id}
-            />
+            <>
+              <Playlist
+                key={recommendMovie.id}
+                titre={recommendMovie.titre}
+                userId={userId}
+                filmId={recommendMovie.id}
+              />
+            </>
           ))
           )}
         </div>
@@ -117,7 +122,7 @@ const UserPlaylist = ({ partenaireData }) => {
         <h5>Films vus</h5>
         <div className={`playlist ${fullScreen ? "fullScreen" : ""}`}>
           {watchedMovies.length === 0 ? (
-            <p>Auun films regarder</p>
+            <p>Aucun films regarder</p>
           ) : (watchedMovies.map((watchedMovie) => (
             <Playlist
               key={watchedMovie.id}

@@ -43,7 +43,7 @@ const Playlist = ({ id, titre, userId, filmId, showNotes, showLike }) => {
         <table className="rwd-table">
           <thead>
             <tr>
-              <th>Title</th>
+              <th>Titre</th>
               <th>{showNotes ? "Note" : "Regardé?"}</th>
             </tr>
           </thead>
@@ -63,7 +63,7 @@ const Playlist = ({ id, titre, userId, filmId, showNotes, showLike }) => {
                       <CheckIcon />
                     </IconButton>
                   </>
-                )}
+                )} 
               </td>
             </tr>
           </tbody>

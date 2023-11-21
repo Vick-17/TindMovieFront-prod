@@ -146,7 +146,7 @@ export const getSwipeByUserId = async (userId, accessToken) => {
 
 export const getMatchByUserId = async (userId1, userId2, accessToken) => {
   try {
-    const response = await fetch(`${API_URL}/match/macthByUser/${userId1}/${userId2}`, {
+    const response = await fetch(`${API_URL}/match/matchByUser/${userId1}/${userId2}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
