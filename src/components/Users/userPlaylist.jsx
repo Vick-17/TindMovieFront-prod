@@ -112,7 +112,7 @@ const UserPlaylist = ({ partenaireData }) => {
                 titre={recommendMovie.titre}
                 userId={userId}
                 filmId={recommendMovie.id}
-              />
+              /> 
             </>
           ))
           )}
