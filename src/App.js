@@ -6,9 +6,10 @@ import Profil from "./page/Profil";
 import ChatRoom from "./components/Users/ChatRoom";
 import Home from "./page/Home";
 import NotFound from "./page/NotFound";
-import Partenaire from "./components/Users/Partenaire";
+import PartenaireLink from "./page/ParetnaireLink";
 import Swipe from "./page/Swipe";
 import jwtDecode from "jwt-decode";
+import QrcodeScanner from "./components/Users/QrcodeScanner";
 
 const App = () => {
   const [roles, setRoles] = useState([]);
@@ -32,26 +33,28 @@ const App = () => {
       <Route path="/commentaire/:movieId" element={<MovieRate />} />
       <Route path="/404" element={<NotFound />} />
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/partenaire" element={<Partenaire />} />
+      <Route path="/partenaire" element={<PartenaireLink />} />
+      <Route path="/qrscan" element={<QrcodeScanner />} />
 
       {roles.length > 0 && roles[0] === "ROLE_MODO" ? (
         <Route path="/swipe" element={<Swipe />} />
       ) : (
         <Route path="/404" element={<NotFound />} />
       )}
-      
-      
+
+
       {roles.length > 0 && roles[0] === "ROLE_MODO" ? (
         <Route path="/message" element={<ChatRoom />} />
       ) : (
         <Route path="/404" element={<NotFound />} />
       )}
 
-      {roles.length > 0 && roles[0] === "ROLE_USER" ? (
+      {roles.length > 0 && (roles.includes("ROLE_USER") || roles.includes("ROLE_MODO")) ? (
         <Route path="/profil" element={<Profil />} />
       ) : (
         <Route path="/profil" element={<Navigate to="/login" />} />
       )}
+
     </Routes>
   );
 }

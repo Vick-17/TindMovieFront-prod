@@ -3,7 +3,6 @@ import { partenaireLink, getLinkedUsername } from '../../service/apiService';
 import { useUserData } from '../../service/userService';
 import toast from 'react-hot-toast';
 import IconButton from "@mui/material/IconButton";
-import SearchBar from '../Static/SearchBar';
 import TextField from '@mui/material/TextField';
 
 const Partenaire = () => {
@@ -44,16 +43,13 @@ const Partenaire = () => {
 
     return (
         <div>
-            <SearchBar />
-            <div style={{width: '100%', height: '90vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center'}}>
             <TextField inputRef={inputRef} id="outlined-basic" label="Code de liaison" variant="outlined" />
-                <IconButton
-                    onClick={handlSubmit}
-                    style={{ fontSize: "17px", color: "black" }}
-                >
-                    Ajouter
-                </IconButton>
-            </div>
+            <IconButton
+                onClick={handlSubmit}
+                style={{ fontSize: "17px", color: "black" }}
+            >
+                Ajouter
+            </IconButton>
         </div>
     );
 };

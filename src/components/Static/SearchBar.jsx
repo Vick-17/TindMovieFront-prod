@@ -99,7 +99,7 @@ const SearchBar = ({ updateSearchResults }) => {
         >
             <MenuItem onClick={goToProfil}>Profile</MenuItem>
             <MenuItem onClick={handlePartenaire}>Partenaire</MenuItem>
-            {userRole.includes("ROLE_USER") || userRole.includes("ROLE_ADMIN") ? (
+            {userRole.includes("ROLE_USER") || userRole.includes("ROLE_MODO") ? (
                 <MenuItem onClick={handleLogout}>
                     Déconnexion
                 </ MenuItem >
