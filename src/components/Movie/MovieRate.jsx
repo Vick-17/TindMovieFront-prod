@@ -57,6 +57,7 @@ const MovieRate = ({ movieAffiche, title }) => {
     };
     fetchUserNames();
   }, [comment, accesToken]);
+  console.log(commentWithAuthors);
   
   return (
     <div className="movie_rate_container">

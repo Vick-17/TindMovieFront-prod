@@ -66,6 +66,7 @@ const Modal = ({ show, onClose, filmId }) => {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               multiline
+              style={{width:'100%', marginTop: '20px'}}
             />
           </div>
           <Button type="submit" variant="contained" endIcon={<SendIcon />}>
