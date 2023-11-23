@@ -69,7 +69,7 @@ const UserPlaylist = ({ partenaireData }) => {
     return <Loader />;
   }
   return (
-    <>
+    <div className="playlist_container">
       <div className="user_block_container">
         <div className="header_playlist">
           {partenaireData.length === 0 ? (
@@ -134,7 +134,7 @@ const UserPlaylist = ({ partenaireData }) => {
           )))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
