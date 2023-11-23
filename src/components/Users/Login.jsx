@@ -11,10 +11,12 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { userLogiIn } from "../../service/apiService";
 import { toast, Toaster } from "react-hot-toast";
 import { useUserData } from "../../service/userService";
+import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { userId } = useUserData();
@@ -41,6 +43,7 @@ export default function SignIn() {
         toast.error("Vous étes déjà connecter");
       } else {
         await userLogiIn(formData);
+        navigate("/")
       }
     } catch (error) {
       console.error(error);

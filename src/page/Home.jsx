@@ -13,18 +13,16 @@ const Home = () => {
     const [searchResults, setSearchResults] = useState([]);
     const [filterResults, setFilterResults] = useState([]);
     const [displayedMovies, setDisplayedMovies] = useState([]);
-    const { userId, accesToken } = useUserData();
+    const { userId, accessToken } = useUserData();
     const [displayMode, setDisplayMode] = useState("all");
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(6);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-
     const updateSearchResults = (results) => {
         setSearchResults(results);
         setDisplayMode("search");
     }
-
     const updateFilter = (resultsFilter) => {
         if (resultsFilter.length > 0) {
             const newDisplayedMovies = resultsFilter.filter(movie => !displayedMovies.includes(movie));
@@ -33,12 +31,11 @@ const Home = () => {
             setDisplayMode("filter");
         }
     }
-
     useEffect(() => {
         const fetchData = async () => {
             try {
                 if (userId) {
-                    const response = await getAllMovieByUser(userId, accesToken);
+                    const response = await getAllMovieByUser(userId, accessToken);
                     setMovies(response);
                     setIsLoading(false);
                 } else {
@@ -53,7 +50,7 @@ const Home = () => {
         };
 
         fetchData();
-    }, [userId, accesToken]);
+    }, [userId, accessToken]);
 
     useEffect(() => {
         const handleResize = () => {

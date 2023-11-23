@@ -4,13 +4,17 @@ import IconButton from "@mui/material/IconButton";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import StarIcon from "@mui/icons-material/Star";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useNavigate } from "react-router-dom";
 
-const iconSwipe = ({ onSwipeLeft, onSwipeRight, onReturn, movieId }) => {
+const IconSwipe = ({ onSwipeLeft, onSwipeRight, onReturn, movieId }) => {
+  const navigate = useNavigate();
+
   const handleStarIconClick = () => {
     if (movieId) {
-      window.location.href = `/commentaire/${movieId}`;
+      navigate(`/commentaire/${movieId}`);
     }
   };
+
   return (
     <div className="icon_swipe_container">
       <IconButton onClick={onReturn}>
@@ -22,9 +26,7 @@ const iconSwipe = ({ onSwipeLeft, onSwipeRight, onReturn, movieId }) => {
       </IconButton>
 
       <IconButton onClick={handleStarIconClick}>
-        <StarIcon
-          style={{ fontSize: 40, color: "#FFAC33" }}
-        />
+        <StarIcon style={{ fontSize: 40, color: "#FFAC33" }} />
       </IconButton>
 
       <IconButton onClick={onSwipeRight}>
@@ -34,4 +36,4 @@ const iconSwipe = ({ onSwipeLeft, onSwipeRight, onReturn, movieId }) => {
   );
 };
 
-export default iconSwipe;
+export default IconSwipe;

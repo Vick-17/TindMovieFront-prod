@@ -14,10 +14,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import StarIcon from "@mui/icons-material/Star";
 import { swipeLike } from "../../service/apiService";
 import { useUserData } from '../../service/userService';
+import { useNavigate } from 'react-router-dom';
 
 const CardList = ({ title, subheader, image, content, actor, movieId, userId, onRemove }) => {
 
-    const { accesToken } = useUserData();
+    const { accessToken } = useUserData();
+    const navigate = useNavigate();
     const ExpandMore = styled((props) => {
         const { expand, ...other } = props;
         return <IconButton {...other} />;
@@ -36,7 +38,7 @@ const CardList = ({ title, subheader, image, content, actor, movieId, userId, on
 
     const handleStarIconClick = () => {
         if (movieId) {
-            window.location.href = `/commentaire/${movieId}`;
+            navigate(`/commentaire/${movieId}`);
         }
     };
 
@@ -48,9 +50,9 @@ const CardList = ({ title, subheader, image, content, actor, movieId, userId, on
                 swipeDirection: swipeDirection
             };
             setShouldRemove(true);
-            await swipeLike(likeData, accesToken);
+            await swipeLike(likeData, accessToken);
         } else {
-            window.location.href = `/login`;
+            navigate('/login');
         }
     };
 

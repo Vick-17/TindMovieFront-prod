@@ -15,6 +15,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { useUserData } from "../../service/userService";
 import TextField from "@mui/material/TextField";
 import { getSearchMovie } from "../../service/apiService";
+import { useNavigate } from "react-router-dom";
 
 
 const SearchBar = ({ updateSearchResults }) => {
@@ -23,6 +24,7 @@ const SearchBar = ({ updateSearchResults }) => {
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     const { userRole } = useUserData();
+    const navigate = useNavigate();
 
     const handleSearchChange = async (event) => {
         const newSearchTerm = event.target.value;
@@ -33,19 +35,19 @@ const SearchBar = ({ updateSearchResults }) => {
 
     const handleLogout = () => {
         localStorage.removeItem("userToken");
-        window.location.href = "/";
+        window.location.href = '/'
     };
 
     const handleLogin = () => {
-        window.location.href = "/login";
+        navigate('/login');
     }
 
     const handlePartenaire = () => {
-        window.location.href = "/partenaire";
+        navigate('/partenaire');
     }
 
     const handleHome = () => {
-        window.location.href = "/";
+        navigate('/');
     }
 
     const handleProfileMenuOpen = (event) => {
@@ -67,9 +69,9 @@ const SearchBar = ({ updateSearchResults }) => {
 
     const goToProfil = () => {
         if (userRole.length !== 0) {
-            window.location.href = `/profil`;
+           navigate('/profil');
         } else {
-            window.location.href = `/login`;
+            navigate('/login');
         }
     }
 

@@ -7,14 +7,14 @@ import SearchBar from '../Static/SearchBar';
 import TextField from '@mui/material/TextField';
 
 const Partenaire = () => {
-    const { userId, accesToken, userRole } = useUserData();
+    const { userId, accessToken, userRole } = useUserData();
     const inputRef = useRef();
 
     const handlSubmit = async () => {
         const shareCode = inputRef.current.value;
         console.log(shareCode);
         try {
-            const response = await partenaireLink(shareCode, userId, accesToken);
+            const response = await partenaireLink(shareCode, userId, accessToken);
 
             if (response.ok) {
                 toast.success("Liaison avec le partenaire réussie.");
@@ -23,7 +23,7 @@ const Partenaire = () => {
                 toast.error(errorMessage);
             }
 
-            const linkedUserResponse = await getLinkedUsername(userId, accesToken);
+            const linkedUserResponse = await getLinkedUsername(userId, accessToken);
             if (linkedUserResponse.ok) {
                 const linkedUsername = await linkedUserResponse.text();
                 toast.success(`Vous êtes maintenant lié avec : ${linkedUsername}`);
