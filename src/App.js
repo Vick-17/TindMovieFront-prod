@@ -27,6 +27,7 @@ const App = () => {
   if (loading) {
     return <p>Loading...</p>;
   }
+  console.log(roles);
   return (
     <Routes>
       <Route path="/" element={<Home />} />
