@@ -6,7 +6,7 @@ import { useUserData } from "../service/userService";
 import { getUserById } from "../service/apiService";
 
 const Profil = () => {
-  const { userId, accesToken } = useUserData();
+  const { userId, accessToken } = useUserData();
   const [userData, setUserData] = useState([]);
   const [partenaireData, setPartenaireData] = useState([]);
 
@@ -14,11 +14,11 @@ const Profil = () => {
     const fetchUserData = async () => {
       try {
         if (userId) {
-          const response = await getUserById(userId, accesToken);
+          const response = await getUserById(userId, accessToken);
           setUserData(response);
         }
         if (userData.idPartenaire) {
-          const response = await getUserById(userData.idPartenaire, accesToken);
+          const response = await getUserById(userData.idPartenaire, accessToken);
           setPartenaireData(response);
         }
       } catch (error) {
@@ -27,7 +27,7 @@ const Profil = () => {
       }
     }
     fetchUserData()
-  }, [userId, accesToken, userData.idPartenaire])
+  }, [userId, accessToken, userData.idPartenaire])
 
   return (
     <>

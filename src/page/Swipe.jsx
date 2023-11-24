@@ -1,11 +1,11 @@
 import React from "react";
-import Header from "../components/Static/header";
+import SearchBar from '../components/Static/SearchBar';
 import MoviesCard from "../components/Movie/MoviesCard";
 
 const Swipe = () => {
   return (
     <div>
-      <Header />
+      <SearchBar />
       <MoviesCard />
     </div>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,30 +15,31 @@ import { userSignIn } from "../../service/apiService";
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+  const usernameRef = useRef(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const nameValue = data.get("firstName");
-    const lastNameValue = data.get("lastName");
-    const usernameValue = data.get("username");
-    const emailValue = data.get("email");
-    const passwordValue = data.get("password");
+    const usernameValue = usernameRef.current.value;
+    const emailValue = emailRef.current.value;
+    const passwordValue = passwordRef.current.value;
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (
-      nameValue.trim() === "" ||
-      lastNameValue.trim() === "" ||
-      usernameValue.trim() === ""
-    ) {
+    if (usernameValue.trim() === "") {
       toast.error("Champ vide");
     } else if (!emailRegex.test(emailValue) || emailValue === "") {
       toast.error("Email non valide");
-    } else if (!(passwordValue.length >= 12 &&
-      /[A-Z]/.test(passwordValue) &&
-      /\d/.test(passwordValue) &&
-      /[@$!%*?&]/.test(passwordValue) &&
-      !/^\s*$/.test(passwordValue))) {
+    } else if (
+      !(
+        passwordValue.length >= 12 &&
+        /[A-Z]/.test(passwordValue) &&
+        /\d/.test(passwordValue) &&
+        /[@$!%*?&]/.test(passwordValue) &&
+        !/^\s*$/.test(passwordValue)
+      )
+    ) {
       toast.error(
         "Le mot de passe doit comporter au moins 12 caractères et 1 caractère spécial, 1 chiffre, 1 majuscule."
       );
@@ -51,9 +52,10 @@ export default function SignUp() {
 
       try {
         await userSignIn(formData);
-        toast.success("Inscription reussi")
+        window.location.href = '/login'
+        toast.success("Inscription réussie");
       } catch (error) {
-        toast.error("L'email existe déjà dans la base de données")
+        toast.error("L'email existe déjà dans la base de données");
         console.error(error);
       }
     }
@@ -94,6 +96,7 @@ export default function SignUp() {
                     label="Pseudo"
                     name="username"
                     autoComplete="family-name"
+                    inputRef={usernameRef}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -101,9 +104,10 @@ export default function SignUp() {
                     required
                     fullWidth
                     id="email"
-                    label="Addresse Email"
+                    label="Adresse Email"
                     name="email"
                     autoComplete="email"
+                    inputRef={emailRef}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -115,6 +119,7 @@ export default function SignUp() {
                     type="password"
                     id="password"
                     autoComplete="new-password"
+                    inputRef={passwordRef}
                   />
                 </Grid>
               </Grid>

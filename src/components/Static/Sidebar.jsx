@@ -10,11 +10,13 @@ import { partenaireLink, getLinkedUsername } from "../../service/apiService";
 import { useUserData } from "../../service/userService";
 import { toast, Toaster } from "react-hot-toast";
 import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ onClose }) => {
   const { userId, userRole } = useUserData();
   const [showSidebar] = useState(true);
   const inputRef = useRef();
+  const navigate = useNavigate();
 
   const handleCloseSidebar = () => {
     if (onClose) {
@@ -22,11 +24,8 @@ const Sidebar = ({ onClose }) => {
     }
   };
   const handleLogout = () => {
-    // Supprimer le token du local storage
     localStorage.removeItem("userToken");
-
-    // Rediriger l'utilisateur vers la page de connexion
-    window.location.href = "/";
+    navigate("/")
   };
 
   const handlSubmit = async () => {

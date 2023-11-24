@@ -12,7 +12,7 @@ import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import Loader from "../Static/Loader";
 
 const UserPlaylist = ({ partenaireData }) => {
-  const { userId, accesToken } = useUserData();
+  const { userId, accessToken } = useUserData();
   const [swipe, setSwipe] = useState([]);
   const [recommendMovies, setRecommendMovies] = useState([])
   const [watchedMovies, setWatchedMovies] = useState([]);
@@ -24,7 +24,7 @@ const UserPlaylist = ({ partenaireData }) => {
       return;
     }
     if (partenaireData.length === 0) {
-      getSwipeByUserId(userId, accesToken)
+      getSwipeByUserId(userId, accessToken)
         .then((response) => {
           setSwipe(response);
         })
@@ -32,7 +32,7 @@ const UserPlaylist = ({ partenaireData }) => {
           console.error("Erreur c'est produite :", error);
         });
     } else {
-      getMatchByUserId(userId, partenaireData.id, accesToken)
+      getMatchByUserId(userId, partenaireData.id, accessToken)
         .then((response) => {
           setSwipe(response);
         })
@@ -42,14 +42,14 @@ const UserPlaylist = ({ partenaireData }) => {
     }
 
 
-    getRecommendationByuser(userId, accesToken)
+    getRecommendationByuser(userId, accessToken)
       .then((response) => {
         setRecommendMovies(response);
       })
       .catch((error) => {
         console.error("Erreur c'est produite :", error);
       })
-    getWatchedMovieByUserId(userId, accesToken)
+    getWatchedMovieByUserId(userId, accessToken)
       .then((response) => {
         setWatchedMovies(response);
       })
@@ -59,7 +59,7 @@ const UserPlaylist = ({ partenaireData }) => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [userId, accesToken, partenaireData]);
+  }, [userId, accessToken, partenaireData]);
 
   const toggleFullScreen = () => {
     setFullScreen(!fullScreen);

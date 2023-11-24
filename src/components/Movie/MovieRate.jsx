@@ -15,11 +15,11 @@ const MovieRate = ({ movieAffiche, title }) => {
   const [comment, setComment] = useState([]);
   const [commentWithAuthors, setCommentWithAuthors] = useState([]);
   const [note, setNote] = useState();
-  const { accesToken } = useUserData();
+  const { accessToken } = useUserData();
   
 
   useEffect(() => {
-    getNoteMoyenne(movieId, accesToken)
+    getNoteMoyenne(movieId, accessToken)
       .then((response) => {
         if (response.error) {
           console.log("marche pas");
@@ -31,7 +31,7 @@ const MovieRate = ({ movieAffiche, title }) => {
         console.error(error);
       });
 
-    getCommentForMovie(movieId, accesToken)
+    getCommentForMovie(movieId, accessToken)
       .then((response) => {
         if (response.error) {
           console.log("marche pas non plus");
@@ -42,22 +42,21 @@ const MovieRate = ({ movieAffiche, title }) => {
       .catch((error) => {
         console.error(error);
       });
-  }, [movieId, accesToken]);
+  }, [movieId, accessToken]);
 
   useEffect(() => {
     const fetchUserNames = async () => {
       const commentsWithAuthors = await Promise.all(
         comment.map(async (commentaire) => {
           const userId = commentaire.usersId;
-          const user = await getUserById(userId, accesToken);
+          const user = await getUserById(userId, accessToken);
           return { ...commentaire, author: user.username };
         })
       );
       setCommentWithAuthors(commentsWithAuthors);
     };
     fetchUserNames();
-  }, [comment, accesToken]);
-  console.log(commentWithAuthors);
+  }, [comment, accessToken]);
   
   return (
     <div className="movie_rate_container">

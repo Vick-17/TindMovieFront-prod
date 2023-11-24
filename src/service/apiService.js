@@ -1,5 +1,5 @@
-const API_URL = "https://backend-production-048b.up.railway.app";
-//const API_URL = "http://localhost:8080";
+//const API_URL = "https://backend-production-048b.up.railway.app";
+const API_URL = "http://localhost:8080";
 
 
 
@@ -327,7 +327,6 @@ export const userSignIn = async (userData) => {
       throw new Error("Erreur lors de l'inscription");
     }
     const data = await response.json();
-    window.location.href = "/login";
     return data;
   } catch (error) {
     console.error(error);
@@ -398,9 +397,6 @@ export const swipeLike = async (swipeData, accessToken) => {
       },
       body: JSON.stringify(swipeData),
     });
-    if (response.status === 403) {
-      window.location.href = "/login";
-    }
     const data = await response.json();
     return data;
   } catch (error) {
@@ -450,7 +446,6 @@ export const userLogiIn = async (userData) => {
       const token = response.headers.get("access_token");
       localStorage.setItem("userToken", token);
       const data = await response.json();
-      window.location.href = "/";
       return data;
     }
   } catch (error) {

@@ -10,7 +10,7 @@ import { useUserData } from "../../service/userService";
 const Playlist = ({ id, titre, userId, filmId, showNotes, showLike }) => {
   const [isWatched, setIsWatched] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { accesToken } = useUserData();
+  const { accessToken } = useUserData();
 
   const handleCheckClick = async () => {
     try {
@@ -18,7 +18,7 @@ const Playlist = ({ id, titre, userId, filmId, showNotes, showLike }) => {
         userId: userId,
         filmId: filmId,
       };
-      await setWatchedMovie(watchedData, accesToken);
+      await setWatchedMovie(watchedData, accessToken);
       setIsWatched(true);
     } catch (error) {
       toast.error("Erreur lors de la mise a jours des film");

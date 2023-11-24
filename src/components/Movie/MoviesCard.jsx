@@ -13,7 +13,7 @@ import { useUserData } from "../../service/userService";
 const MoviesCard = () => {
   const [movies, setMovies] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { userId, accesToken } = useUserData();
+  const { userId, accessToken } = useUserData();
   const [serverIsDown, setServerIsDown] = useState(false);
 
   // Référence pour suivre currentIndex
@@ -29,7 +29,7 @@ const MoviesCard = () => {
         let response;
         if (userId) {
           // Charge les films de l'utilisateur s'il est connecté
-          response = await getAllMovieByUser(userId, accesToken);
+          response = await getAllMovieByUser(userId, accessToken);
         } else {
           // Charge tous les films si l'utilisateur n'est pas connecté
           response = await getAllMovie();
@@ -47,7 +47,7 @@ const MoviesCard = () => {
     };
 
     fetchData();
-  }, [userId, accesToken]);
+  }, [userId, accessToken]);
 
   const updateCurrentIndex = (val) => {
     // Met à jour currentIndex et la référence
@@ -56,11 +56,12 @@ const MoviesCard = () => {
   };
 
   const outOfFrame = (name, idx) => {
-    if (currentIndexRef.current >= idx) {
+    if (currentIndexRef.current >= idx && childRefs[idx].current) {
       // Restaure la carte qui a quitté l'écran
       childRefs[idx].current.restoreCard();
     }
   };
+
 
   const swiped = async (direction, nameToDelete, index) => {
     // Gère les gestes de balayage (gauche/droite)
@@ -70,9 +71,20 @@ const MoviesCard = () => {
       swipeDirection: direction,
     };
 
-    await swipeLike(swipeData, accesToken);
-    updateCurrentIndex(index - 1);
+    try {
+      const response = await swipeLike(swipeData, accessToken);
+
+      if (response && !response.error) {
+        // La réponse est valide, mettez à jour currentIndex
+        updateCurrentIndex(index - 1);
+      } else {
+        console.error("Erreur lors de l'appel à swipeLike :", response.error);
+      }
+    } catch (error) {
+      console.error("Une erreur s'est produite lors de l'appel à swipeLike :", error);
+    }
   };
+
 
   const swipe = async (dir) => {
     if (currentIndex >= 0 && currentIndex < movies.length) {
@@ -95,7 +107,7 @@ const MoviesCard = () => {
       filmId: movies[newIndex].id,
     };
     // Supprime le geste de balayage associé
-    await deleteSwipe(swipeData, accesToken);
+    await deleteSwipe(swipeData, accessToken);
   };
 
   return (
