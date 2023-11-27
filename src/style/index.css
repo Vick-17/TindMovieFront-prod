@@ -16,4 +16,5 @@
 @import './components/CardList.css';
 @import './page/Home.css';
 @import './components/FilterBar.css';
-@import './components/Pagination.css'
+@import './components/Pagination.css';
+@import './page/PartenaireLink.css';

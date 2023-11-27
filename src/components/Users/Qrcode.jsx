@@ -31,9 +31,9 @@ const Qrcode = () => {
     }, [userId, accessToken, navigate]);
 
     return (
-        <div style={{textAlign:'center'}}>
+        <div style={{ textAlign: 'center' }}>
             <Toaster position="top-center" reverseOrder={false} />
-            {userCode && <QRCode value={userCode} />}
+            {userCode && <QRCode value={userCode} style={{width: '80%'}}/>}
             <h4>{userCode}</h4>
         </div>
     );

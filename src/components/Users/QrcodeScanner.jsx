@@ -4,6 +4,7 @@ import { useUserData } from '../../service/userService';
 import { partenaireLink } from '../../service/apiService';
 import { Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import SearchBar from '../Static/SearchBar';
 
 const QrcodeScanner = () => {
     const [data, setData] = useState('No result');
@@ -40,10 +41,11 @@ const QrcodeScanner = () => {
 
     return (
         <>
+        <SearchBar />
             <Toaster position="top-center" reverseOrder={false} />
             <QrReader
                 onResult={handleScan}
-                style={{ width: '50%' }}
+                style={{ width: '40%' }}
             />
         </>
     );

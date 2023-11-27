@@ -5,11 +5,13 @@ import SearchBar from '../components/Static/SearchBar';
 
 const ParetnaireLink = () => {
     return (
-        <div>
+        <>
             <SearchBar />
-            <Qrcode />
-            <Partenaire />
-        </div>
+            <div className='ContainerQr'>
+                <Qrcode />
+                <Partenaire />
+            </div>
+        </>
     );
 };
 

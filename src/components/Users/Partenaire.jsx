@@ -4,6 +4,7 @@ import { useUserData } from '../../service/userService';
 import toast from 'react-hot-toast';
 import IconButton from "@mui/material/IconButton";
 import TextField from '@mui/material/TextField';
+import { Link } from 'react-router-dom';
 
 const Partenaire = () => {
     const { userId, accessToken, userRole } = useUserData();
@@ -42,7 +43,7 @@ const Partenaire = () => {
     }
 
     return (
-        <div>
+        <div style={{display:'flex', flexDirection:'column'}}>
             <TextField inputRef={inputRef} id="outlined-basic" label="Code de liaison" variant="outlined" />
             <IconButton
                 onClick={handlSubmit}
@@ -50,6 +51,7 @@ const Partenaire = () => {
             >
                 Ajouter
             </IconButton>
+            <Link to='/qrscan'>Scanner un qr-code</Link>
         </div>
     );
 };
