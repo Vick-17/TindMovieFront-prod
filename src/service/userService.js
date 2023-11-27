@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Navigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import { getUserIdByEmail } from "./apiService";
@@ -13,7 +13,7 @@ export const useUserData = () => {
 
   useEffect(() => {
     token.current = localStorage.getItem("userToken");
-   
+
     if (token.current !== null) {
       const decodedTokens = jwtDecode(token.current);
       const isTokenValid = isTokenExpired(decodedTokens.exp);
@@ -27,27 +27,20 @@ export const useUserData = () => {
         });
       } else {
         localStorage.removeItem("userToken");
-        <Navigate to="/login" />
+        <Navigate to="/login" />;
       }
     }
   }, []);
 
   const isTokenExpired = (expirationTime) => {
-    // Convertir le temps d'expiration en millisecondes
     const expirationTimeMs = expirationTime * 1000;
-
-    // Comparer avec le temps actuel
     return expirationTimeMs > Date.now();
   };
 
-  const memoUser = useMemo(() => {
-    return {
-      userId,
-      userEmail,
-      userRole,
-      accessToken,
-    };
-  }, [userId, userEmail, userRole, accessToken]);
-
-  return memoUser;
+  return {
+    userId,
+    userEmail,
+    userRole,
+    accessToken,
+  };
 };

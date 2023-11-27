@@ -14,12 +14,14 @@ import QrcodeScanner from "./components/Users/QrcodeScanner";
 const App = () => {
   const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [rolesLoaded, setRolesLoaded] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("userToken");
     if (token !== null) {
       const decodedToken = jwtDecode(token);
       setRoles(decodedToken.roles);
+      setRolesLoaded(true);
     }
     setLoading(false);
   }, []);
@@ -27,7 +29,6 @@ const App = () => {
   if (loading) {
     return <p>Loading...</p>;
   }
-  console.log(roles);
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -50,7 +51,7 @@ const App = () => {
         <Route path="/404" element={<NotFound />} />
       )}
 
-      {roles.length > 0 && (roles.includes("ROLE_USER") || roles.includes("ROLE_MODO")) ? (
+      {rolesLoaded && (roles.includes("ROLE_USER") || roles.includes("ROLE_MODO")) ? (
         <Route path="/profil" element={<Profil />} />
       ) : (
         <Route path="/profil" element={<Navigate to="/login" />} />

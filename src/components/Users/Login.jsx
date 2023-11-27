@@ -43,7 +43,7 @@ export default function SignIn() {
         toast.error("Vous étes déjà connecter");
       } else {
         await userLogiIn(formData);
-        navigate("/")
+        window.location.href = '/'
       }
     } catch (error) {
       console.error(error);
