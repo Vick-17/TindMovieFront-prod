@@ -44,8 +44,9 @@ const QrcodeScanner = () => {
         <SearchBar />
             <Toaster position="top-center" reverseOrder={false} />
             <QrReader
-                onResult={handleScan}
-                style={{ width: '40%' }}
+               onResult={handleScan}
+               style={{ width: '50%' }}
+               facingMode="environment"
             />
         </>
     );
