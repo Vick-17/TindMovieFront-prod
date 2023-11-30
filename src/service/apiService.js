@@ -129,7 +129,7 @@ export const getUserIdByEmail = async (userEmail, accessToken) => {
 
 export const getSwipeByUserId = async (userId, accessToken) => {
   try {
-    const response = await fetch(`${API_URL}/swipe/allSwipe/${userId}`, {
+    const response = await fetch(`${API_URL}/like/alLike/${userId}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -165,7 +165,7 @@ export const getMatchByUserId = async (userId1, userId2, accessToken) => {
 
 export const getWatchedMovieByUserId = async (userId, accessToken) => {
   try {
-    const response = await fetch(`${API_URL}/swipe/watchedMovie/${userId}`, {
+    const response = await fetch(`${API_URL}/like/watchedMovie/${userId}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -365,7 +365,7 @@ export const partenaireLink = async (shareCode, userId, accessToken) => {
 
 export const setWatchedMovie = async (watchedData, accessToken) => {
   try {
-    const response = await fetch(`${API_URL}/swipe/watched`, {
+    const response = await fetch(`${API_URL}/like/watched`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -389,7 +389,7 @@ export const setWatchedMovie = async (watchedData, accessToken) => {
 
 export const swipeLike = async (swipeData, accessToken) => {
   try {
-    const response = await fetch(`${API_URL}/swipe/like`, {
+    const response = await fetch(`${API_URL}/like`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -460,7 +460,7 @@ export const deleteSwipe = async (swipeData, accessToken) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken}`
     };
-    const response = await fetch(`${API_URL}/swipe/delete`, {
+    const response = await fetch(`${API_URL}/like/delete`, {
       headers: headers,
       method: "DELETE",
       body: JSON.stringify(swipeData),
