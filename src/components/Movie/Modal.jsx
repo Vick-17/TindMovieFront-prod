@@ -30,7 +30,7 @@ const Modal = ({ show, onClose, filmId }) => {
     // Appeler la fonction d'envoi de données à l'API
     try {
       await addCommentAndNote(commentData, noteData, accessToken);
-      onClose();  // Fermer la modal après l'envoi réussi
+      onClose();  
     } catch (error) {
       toast.error("Vous avez déjà noter  se films");
     }
