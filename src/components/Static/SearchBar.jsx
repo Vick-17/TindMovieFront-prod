@@ -29,8 +29,8 @@ const SearchBar = ({ updateSearchResults }) => {
     const handleSearchChange = async (event) => {
         const newSearchTerm = event.target.value;
         const results = await getSearchMovie(newSearchTerm);
-
         updateSearchResults(results)
+        navigate('/');
     }
 
     const handleLogout = () => {
